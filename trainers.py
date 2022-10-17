@@ -9,14 +9,7 @@ from PIL import Image
 from custom_transforms import *
 from data import DatasetFullImages
 import os
-import gc
 
-import tensorflow as tf
-config = tf.compat.v1.ConfigProto()
-config.gpu_options.allow_growth = True
-sess = tf.compat.v1.Session(config=config)
-
-torch.backends.cudnn.benchmark = False 
 
 class Trainer(object):
     def __init__(self,
@@ -108,7 +101,7 @@ class Trainer(object):
         return image_loss, perception_loss, adversarial_loss, generated
 
 
-    def train(self, generator, discriminator, epochs, data_root, config_yaml_name, starting_batch_num, step):
+    def train(self, generator, discriminator, epochs, data_root, config_yaml_name, starting_batch_num):
         self.use_adversarial_loss = discriminator is not None
         batch_num = starting_batch_num
         save_num = 0
@@ -158,7 +151,7 @@ class Trainer(object):
                     eval_start = time.time()
                     generator.eval()
                     self.test_on_full_image(generator, batch_num, data_root, config_yaml_name)
-                    self.flush_scalar_log(batch_num, time.time() - start, step=step)
+                    self.flush_scalar_log(batch_num, time.time() - start)
                     self.model_logger.save(generator, save_num, True)
                     #self.model_logger.save(discriminator, save_num, False)
                     save_num += 1
@@ -178,9 +171,9 @@ class Trainer(object):
                 self.training_log[k] = v
 
     # Divide the losses by log_interval and print'em
-    def flush_scalar_log(self, batch_num, took, step):
+    def flush_scalar_log(self, batch_num, took):
         for key in self.training_log.keys():
-            self.scalar_logger.scalar_summary(key, self.training_log[key] / self.log_interval, batch_num, step=step)
+            self.scalar_logger.scalar_summary(key, self.training_log[key] / self.log_interval, batch_num)
 
         log = "[%d]" % batch_num
         for key in sorted(self.training_log.keys()):
