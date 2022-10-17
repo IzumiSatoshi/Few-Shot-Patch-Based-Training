@@ -1,9 +1,12 @@
 # this implementation works on python 3.9 and is packaged into one single script.
 
 ## to run this script
+``` 
+cd C:/path/to/Few-Shot-Patch-Based-Training-master
+``` 
 
 ``` 
-python Few-Shot-Patch-Based-Training-master\_tools\fewshot.py 
+python _tools\fewshot.py 
 	--videofile "C:\path\to\input\video\video.mp4" 
 	--projectname project2 
 	--logpath logs 
@@ -13,6 +16,8 @@ python Few-Shot-Patch-Based-Training-master\_tools\fewshot.py
 	--precision detailed 
 ```
 ## install guide
+
+### make sure there's no spaces in the directories that lead to the Few-Shot-Patch-Based-Training-master folder
 
 As it links against OpenCV-4.2.0,
 it expects the `opencv_world420.dll` in PATH. Download [OpenCV-4.2.0](https://opencv.org/opencv-4-2-0/),
