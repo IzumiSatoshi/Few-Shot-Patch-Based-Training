@@ -14,7 +14,7 @@ python Few-Shot-Patch-Based-Training-master\_tools\fewshot.py
 ```
 ## install guide
 
-### make new system variable 
+### put these into PATH system variables 
 
 put "Few-Shot-Patch-Based-Training\_tools\disflow\disflow.exe" in PATH
 
