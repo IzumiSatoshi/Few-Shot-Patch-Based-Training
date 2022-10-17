@@ -43,6 +43,12 @@ pip install numpy==1.21.2
 
 Download the latest 64 bit HDR version of Image Magick from [here](https://imagemagick.org/script/download.php#windows.)
 
+#
+
+#
+
+#
+
 # Interactive Video Stylization Using Few-Shot Patch-Based Training
 
 The official implementation of
