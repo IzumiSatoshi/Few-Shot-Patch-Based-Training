@@ -18,8 +18,6 @@ python Few-Shot-Patch-Based-Training-master\_tools\fewshot.py
 
 put "Few-Shot-Patch-Based-Training\\_tools\disflow\disflow.exe" in PATH
 
-put "Few-Shot-Patch-Based-Training\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll" in PATH
-
 put "Few-Shot-Patch-Based-Training\\_tools\gauss\gaus.exe" in PATH
 
 put "Few-Shot-Patch-Based-Training\\_tools\bilateralAdv\bilateralAdv.exe" in PATH
