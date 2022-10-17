@@ -29,15 +29,14 @@ put "Few-Shot-Patch-Based-Training\_tools\bilateralAdv\bilateralAdv.exe" in PATH
 ``` 
 pip install opencv-python
 pip install scikit-build
-pip install numpy==1.19.1
 pip install cython
-pip install Pillow==7.2.0
+pip install Pillow
 pip install PyYAML==5.3.1
-pip install scikit-image==0.17.2
-pip install scipy==1.5.2
-pip install tensorflow==1.15.3
-pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu113
-pip install numpy==1.19.1
+pip install scikit-image==0.18.1
+pip install scipy==1.6.2
+pip install tensorflow==2.7.0
+pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html  
+pip install numpy==1.21.2
 ``` 
 
 ### imagemagick install
