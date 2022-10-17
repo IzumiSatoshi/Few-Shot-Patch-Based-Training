@@ -42,11 +42,16 @@ if __name__ == "__main__":
     parser.add_argument('--log_interval', '-i', type=int, help='Log interval', required=True)
     parser.add_argument('--resume', '-rs', type=str, help='resume', required=False)
     parser.add_argument('--projectname', type=str, help='name of the project_', required=True)
+    
+    parser.add_argument('--logpath', type=str, help='path where your training happens',default = 'logs')
     args = parser.parse_args()
 
     
-    
-    data_path = os.path.expanduser('~\Documents\\visionsofchaos\\fewshot\\data')
+    if args.logpath:
+        data_path = args.logpath
+    else:
+        data_path = os.path.expanduser('~\Documents\\visionsofchaos\\fewshot\\data')
+    #data_path = os.path.expanduser('~\Documents\\visionsofchaos\\fewshot\\data')
     data_root = data_path + "\\" + args.projectname+"_train"
     args_log_folder = data_root + "/" + "logs_reference_P"
 
