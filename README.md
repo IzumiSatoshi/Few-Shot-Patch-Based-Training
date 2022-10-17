@@ -27,7 +27,7 @@ put "Few-Shot-Patch-Based-Training\_tools\bilateralAdv\bilateralAdv.exe" in PATH
 ### pip installs
 
 ``` 
-pip install opencv-python==4.4.0.40
+pip install opencv-python
 pip install scikit-build
 pip install numpy==1.19.1
 pip install cython
