@@ -17,7 +17,7 @@ args = parser.parse_args()
 
 cwd = os.getcwd()
 tools_all = cwd + '/_tools/tools_all.py'
-trainur = cwd + '/training/train.py'
+trainur = cwd + '/train.py'
 disco1010 = cwd + '/_config/reference_P_disco1010.yaml'
 disco1015 = cwd + '/_config/reference_P_disco1015.yaml'
 
