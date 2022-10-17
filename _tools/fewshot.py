@@ -240,9 +240,9 @@ import cv2
 img = cv2.imread(imageread)
 print(img.shape)
 if( img.shape != (args.H, args.W, 3) ):
-    subprocess.run(["mogrify", "-resize", resizesize, "-quality", "100", gen_filtered_batch])#, "*.png", "-quality", "100", gen_filtered])
+    subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", gen_filtered_batch])#, "*.png", "-quality", "100", gen_filtered])
     print ("frames in ",gen_filtered, "resized") 
-    subprocess.run(["mogrify", "-resize", resizesize, "-quality", "100", train_filtered_batch])#, "*.png", "-quality", "100", train_filtered])
+    subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", train_filtered_batch])#, "*.png", "-quality", "100", train_filtered])
     print ("frames in ",train_filtered, "resized")
 if( img.shape == (args.H, args.W, 3) ):
     print('no resizing needed')
