@@ -303,8 +303,8 @@ if args.precision == 'detailed':
     print("results will appear in ",disco1010path,"every 10000 steps")
 else:
     print("results will appear in ",disco1015path,"every 10000 steps")
-if( img1.shape != (args.H, args.W, 3) ):
-        subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", train_output_batch]) 
+#if( img1.shape != (args.H, args.W, 3) ):
+subprocess.run(["magick","mogrify", "-resize", resizesize, "-quality", "100", train_output_batch]) 
     
 if args.precision == 'detailed':
         print('python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
