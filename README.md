@@ -24,7 +24,7 @@ put "Few-Shot-Patch-Based-Training\\_tools\bilateralAdv\bilateralAdv.exe" in PAT
 
 ### pip installs
 
-(venv don't work atm because of the subprocess things, if you find a fix please do a pull request)
+(venv don't work atm (probably because of the subprocess things), if you find a fix please do a pull request)
 
 ``` 
 pip install opencv-python
@@ -42,6 +42,10 @@ pip install numpy==1.21.2
 ### imagemagick install
 
 Download the latest 64 bit HDR version of Image Magick from [here](https://imagemagick.org/script/download.php#windows.)
+
+# BTW works best if your footage is super clean (no flickering etc)
+
+# just run the command, the guide on how to do it will be displayed in the command terminal after you run the script (you'll see)
 
 #
 
