@@ -1,18 +1,45 @@
-# this implementation works on python 3.9 and you only need to run one script to get results
+# this implementation works on python 3.9 and is packaged into one single script.
 
 ## to run this script
 
 ``` 
-python Few-Shot-Patch-Based-Training-master\_tools\preparation.py 
+python Few-Shot-Patch-Based-Training-master\_tools\fewshot.py 
 	--videofile "C:\path\to\input\video\video.mp4" 
 	--projectname project2 
 	--logpath logs 
 	--W 1024 
-	--H 512
-	--framegap 5
-	--precision detailed
+	--H 512 
+	--framegap 5 
+	--precision detailed 
 ```
+## install guide
 
+### make new system variable 
+
+put "Few-Shot-Patch-Based-Training\_tools\disflow\disflow.exe" in PATH
+put "Few-Shot-Patch-Based-Training\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll" in PATH
+put "Few-Shot-Patch-Based-Training\_tools\gauss\gaus.exe" in PATH
+put "Few-Shot-Patch-Based-Training\_tools\bilateralAdv\bilateralAdv.exe" in PATH
+
+### pip installs
+
+``` 
+pip install opencv-python==4.4.0.40
+pip install scikit-build
+pip install numpy==1.19.1
+pip install cython
+pip install Pillow==7.2.0
+pip install PyYAML==5.3.1
+pip install scikit-image==0.17.2
+pip install scipy==1.5.2
+pip install tensorflow==1.15.3
+pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu113
+pip install numpy==1.19.1
+``` 
+
+### normal install
+
+Download the latest 64 bit HDR version of Image Magick from [here](https://imagemagick.org/script/download.php#windows.)
 
 # Interactive Video Stylization Using Few-Shot Patch-Based Training
 
