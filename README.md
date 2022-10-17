@@ -26,6 +26,8 @@ put "Few-Shot-Patch-Based-Training\_tools\bilateralAdv\bilateralAdv.exe" in PATH
 
 ### pip installs
 
+(venv don't work atm because of the subprocess things, if you find a fix please do a pull request)
+
 ``` 
 pip install opencv-python
 pip install scikit-build
