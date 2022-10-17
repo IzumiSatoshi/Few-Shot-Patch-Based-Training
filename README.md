@@ -32,13 +32,13 @@ put the opencv-4.2.0 folder in Few-Shot-Patch-Based-Training-master\\_tools\disf
 
 ### put these into PATH system variables 
 
-put "Few-Shot-Patch-Based-Training\\_tools\disflow\disflow.exe" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\disflow\disflow.exe" in PATH
 
-put "Few-Shot-Patch-Based-Training\\_tools\gauss\gaus.exe" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\gauss\gaus.exe" in PATH
 
-put "Few-Shot-Patch-Based-Training\\_tools\bilateralAdv\bilateralAdv.exe" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\bilateralAdv\bilateralAdv.exe" in PATH
 
-put "C:\deepdream-test\Few-Shot-Patch-Based-Training\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll" in PATH
 
 ### pip installs
 
