@@ -37,7 +37,7 @@ pip install torch torchvision --extra-index-url https://download.pytorch.org/whl
 pip install numpy==1.19.1
 ``` 
 
-### normal install
+### imagemagick install
 
 Download the latest 64 bit HDR version of Image Magick from [here](https://imagemagick.org/script/download.php#windows.)
 
