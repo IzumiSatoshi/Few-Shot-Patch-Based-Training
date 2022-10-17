@@ -197,11 +197,14 @@ train_filtered = data_path+'\\'+str(args.projectname)+'_train'+'\\'+'input_filte
 gen_filtered = data_path + '\\' + args.projectname + '_gen\\input_filtered/'
 gen_filtered_batch = data_path + '\\' + args.projectname + '_gen\\input_filtered/*'
 gen_mask = data_path + '\\' + args.projectname + '_gen\\mask/'
-train_output = data_path+'\\'+str(args.projectname)+'_train'+'\\'+'output/*'
+train_output = data_path+'\\'+str(args.projectname)+'_train'+'\\'+'output/'
+train_output_batch = data_path+'\\'+str(args.projectname)+'_train'+'\\'+'output/*'
 train_filtered = data_path + '\\' + args.projectname + '_train\\input_filtered/'
 train_filtered_batch = data_path + '\\' + args.projectname + '_train\\input_filtered/*'
 train_mask = data_path + '\\' + args.projectname + '_train\\mask/'
 train_root = data_path + '\\' + args.projectname + '_train/'
+disco1010path = data_path + '\\' + args.projectname + '_gen\\res__P_disco1010'
+disco1015path = data_path + '\\' + args.projectname + '_gen\\res__P_disco1015'
 
 
 video_length = len(os.listdir(gen_filtered))
@@ -284,18 +287,25 @@ subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_l
 
 print("")
 print("")
-export_done = (input("are you done with creating the export frames? press ENTER when you are"))
+export_done = (input("are you done with creating the export frames an you've put them into",train_output,"? press ENTER to start patch based training"))
 
 if export_done:
     print("")
+    
     print("")
 imageread1 = train_output +'001.png'
 import cv2
 img1 = cv2.imread(imageread1)
+if args.precision == 'detailed':
+    print("results will appear in ",disco1010path,"every 10000 steps")
+else:
+    print("results will appear in ",disco1015path,"every 10000 steps")
 if( img1.shape != (args.H, args.W, 3) ):
-        subprocess.run(["mogrify", "-resize", resizesize, "-quality", "100", train_output]) 
+        subprocess.run(["mogrify", "-resize", resizesize, "-quality", "100", train_output_batch]) 
     
 if args.precision == 'detailed':
-        subprocess.run(['python', '-B', trainur,  '--config', disco1010, '--data_root', train_root,  '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        print('python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
 else:
-        subprocess.run(['python', '-B', trainur,  '--config', disco1015, '--data_root', train_root,  '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        print('python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
