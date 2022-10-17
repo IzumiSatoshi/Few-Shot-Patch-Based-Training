@@ -37,18 +37,12 @@ def worker_init_fn(worker_id):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', '-c', help='Yaml config with training parameters', required=True)
-    parser.add_argument('--log_folder', '-l', help='Log folder', default="logs_reference_P")
-    parser.add_argument('--data_root', '-r', help='Data root folder', required=False)
+    parser.add_argument('--log_folder', '-l', help='Log folder', required=True)
+    parser.add_argument('--data_root', '-r', help='Data root folder', required=True)
     parser.add_argument('--log_interval', '-i', type=int, help='Log interval', required=True)
-    parser.add_argument('--resume', '-rs', type=str, help='resume', required=False)
-    parser.add_argument('--projectname', type=str, help='name of the project_', required=True)
     args = parser.parse_args()
 
-    
-    
-    data_path = os.path.expanduser('~\Documents\\visionsofchaos\\fewshot\\data')
-    data_root = data_path + "\\" + args.projectname+"_train"
-    args_log_folder = data_root + "/" + "logs_reference_P"
+    args_log_folder = args.data_root + "/" + args.log_folder
 
     with open(args.config, 'r') as f:
         job_description = yaml.load(f, Loader=yaml.FullLoader)
@@ -66,25 +60,24 @@ if __name__ == "__main__":
         raise RuntimeError("Got unexpected parameter in training_dataset: " + str(training_dataset_parameters))
 
     d = dict(config['training_dataset'])
-    d['dir_pre'] = data_root + "/" + d['dir_pre']
-    d['dir_post'] = data_root + "/" + d['dir_post']
+    d['dir_pre'] = args.data_root + "/" + d['dir_pre']
+    d['dir_post'] = args.data_root + "/" + d['dir_post']
     d['device'] = config['device']
     if 'dir_mask' in d:
-        d['dir_mask'] = data_root + "/" + d['dir_mask']
+        d['dir_mask'] = args.data_root + "/" + d['dir_mask']
 
     # complete dir_x paths and set a correct number of channels
     channels = 3
     for dir_x_index in range(1, 10):
         dir_x_name = f"dir_x{dir_x_index}"
-        d[dir_x_name] = data_root + "/" + d[dir_x_name] if dir_x_name in d else None
+        d[dir_x_name] = args.data_root + "/" + d[dir_x_name] if dir_x_name in d else None
         channels = channels + 3 if d[dir_x_name] is not None else channels
     config['generator']['args']['input_channels'] = channels
 
     print(d)
-    resumedata = str(args.resume)
+
     generator = build_model(config['generator']['type'], config['generator']['args'], device)
-    if args.resume:
-        generator = (torch.load(data_root + "/"+"/logs_reference_P"+"/"+resumedata+".pth", map_location=lambda storage, loc: storage)).to(device)
+    #generator = (torch.load(args.data_root + "/model_00300_style2.pth", map_location=lambda storage, loc: storage)).to(device)
     opt_generator = build_optimizer(config['opt_generator']['type'], generator, config['opt_generator']['args'])
 
     discriminator, opt_discriminator = None, None
@@ -134,6 +127,6 @@ if __name__ == "__main__":
 
     args_config = args.config.replace('\\', '/')
     args_config = args_config[args_config.rfind('/') + 1:]
-    trainer.train(generator, discriminator, int(config['trainer']['epochs']), data_root, args_config, 0)
+    trainer.train(generator, discriminator, int(config['trainer']['epochs']), args.data_root, args_config, 0)
     print("Training finished", flush=True)
     sys.exit(0)
