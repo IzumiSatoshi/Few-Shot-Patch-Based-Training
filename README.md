@@ -1,3 +1,19 @@
+# this implementation works on python 3.9 and you only need to run one script to get results
+
+## to run this script
+
+``` 
+python Few-Shot-Patch-Based-Training-master\_tools\preparation.py 
+	--videofile "C:\path\to\input\video\video.mp4" 
+	--projectname project2 
+	--logpath logs 
+	--W 1024 
+	--H 512
+	--framegap 5
+	--precision detailed
+```
+
+
 # Interactive Video Stylization Using Few-Shot Patch-Based Training
 
 The official implementation of
