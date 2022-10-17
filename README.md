@@ -14,6 +14,11 @@ python Few-Shot-Patch-Based-Training-master\_tools\fewshot.py
 ```
 ## install guide
 
+As it links against OpenCV-4.2.0,
+it expects the `opencv_world420.dll` in PATH. Download [OpenCV-4.2.0](https://opencv.org/opencv-4-2-0/),
+they offer prebuilt 
+[Win pack](https://sourceforge.net/projects/opencvlibrary/files/4.2.0/opencv-4.2.0-vc14_vc15.exe/download). 
+
 ### put these into PATH system variables 
 
 put "Few-Shot-Patch-Based-Training\\_tools\disflow\disflow.exe" in PATH
@@ -21,6 +26,8 @@ put "Few-Shot-Patch-Based-Training\\_tools\disflow\disflow.exe" in PATH
 put "Few-Shot-Patch-Based-Training\\_tools\gauss\gaus.exe" in PATH
 
 put "Few-Shot-Patch-Based-Training\\_tools\bilateralAdv\bilateralAdv.exe" in PATH
+
+put "C:\deepdream-test\Few-Shot-Patch-Based-Training\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll" in PATH
 
 ### pip installs
 
