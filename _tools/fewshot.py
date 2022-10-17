@@ -260,6 +260,8 @@ logpath = str(data_path)
 
 print("")
 print("")
+print("")
+print("")
 print("preparation done, apply desired effects on the images that are in '",train_filtered,"' and export those to '",train_output,"'")
 print("")
 print("")
