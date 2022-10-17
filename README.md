@@ -31,7 +31,7 @@ pip install opencv-python
 pip install scikit-build
 pip install cython
 pip install Pillow
-pip install PyYAML==5.3.1
+pip install PyYAML==5.4
 pip install scikit-image==0.18.1
 pip install scipy==1.6.2
 pip install tensorflow==2.7.0
