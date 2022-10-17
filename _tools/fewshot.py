@@ -289,7 +289,8 @@ subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_l
 
 print("")
 print("")
-export_done = (input("are you done with creating the export frames an you've put them into",train_output,"? press ENTER to start patch based training"))
+print("a reminder to put the styled export frames into", train_output)
+export_done = (input("are you done with creating the styled frames? press ENTER to start patch based training"))
 
 if export_done:
     print("")
@@ -308,6 +309,8 @@ if( img1.shape != (args.H, args.W, 3) ):
 if args.precision == 'detailed':
         print('python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
         subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        
 else:
         print('python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
         subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        
