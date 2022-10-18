@@ -21,12 +21,14 @@ python _tools\fewshot.py
 
 # 
 
-As it links against OpenCV-4.2.0,
-it expects the `opencv_world420.dll` in PATH. Download [OpenCV-4.2.0](https://opencv.org/opencv-4-2-0/),
+Download [OpenCV-4.2.0](https://opencv.org/opencv-4-2-0/),
 they offer prebuilt 
 [Win pack](https://sourceforge.net/projects/opencvlibrary/files/4.2.0/opencv-4.2.0-vc14_vc15.exe/download),
 
 put the opencv-4.2.0 folder in Few-Shot-Patch-Based-Training-master\\_tools\disflow
+
+As it links against OpenCV-4.2.0,
+it expects the `Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll` in PATH.
 
 # 
 
