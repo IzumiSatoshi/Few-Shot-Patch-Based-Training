@@ -26,9 +26,7 @@ python _tools\fewshot.py
 
 # 
 
-Download [OpenCV-4.2.0](https://opencv.org/opencv-4-2-0/),
-they offer prebuilt 
-[Win pack](https://sourceforge.net/projects/opencvlibrary/files/4.2.0/opencv-4.2.0-vc14_vc15.exe/download),
+Download [OpenCV-4.2.0](https://drive.google.com/file/d/1BUchCosp6GqWQ7AmU0Xm4iZ91PzS4Nsk/view?usp=sharing),
 
 put the opencv-4.2.0 folder in Few-Shot-Patch-Based-Training-master\\_tools\disflow
 
