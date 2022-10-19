@@ -37,15 +37,15 @@ it expects the `Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.
 
 ### put these into PATH system variables 
 
-put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\disflow" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\disflow" in PATH
 
-put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\gauss" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\gauss" in PATH
 
-put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\bilateralAdv" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\bilateralAdv" in PATH
 
-put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll" in PATH
 
-put "C:\path\to\Few-Shot-Patch-Based-Training\\_tools\disflow\disflow.exe" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\disflow\disflow.exe" in PATH
 
 ### pip installs
 
