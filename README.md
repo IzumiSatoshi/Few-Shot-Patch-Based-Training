@@ -1,5 +1,13 @@
 ## this implementation works on python 3.9 and puts all the scripts you have to run into one script
 
+[x] streamline everything of Few-Shot-Patch-Based-Training into one script
+[x] automatically get frames to apply style on
+[x] gif support
+[] mask support (in progress)
+[] optimize the movement tracking scripts to run with GPU or multiple CPU (in progress)
+[] add ubuntu support (in progress)
+[] make a GUI (hit me up)
+
 ## to run this script
 
 ### run terminal as administrator
