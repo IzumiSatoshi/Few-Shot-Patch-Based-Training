@@ -1,6 +1,9 @@
 # this implementation works on python 3.9 and is packaged into one single script.
 
 ## to run this script
+
+### run terminal as administrator
+
 ``` 
 cd C:/path/to/Few-Shot-Patch-Based-Training-master
 ``` 
@@ -62,6 +65,7 @@ pip install scipy==1.6.2
 pip install tensorflow==2.7.0
 pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html  
 pip install numpy==1.21.2
+pip install moviepy
 ``` 
 
 ### imagemagick install
