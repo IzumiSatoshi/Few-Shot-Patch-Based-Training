@@ -34,7 +34,7 @@ Download prebuilt [OpenCV-4.2.0](https://drive.google.com/file/d/1BUchCosp6GqWQ7
 put the opencv-4.2.0 folder in Few-Shot-Patch-Based-Training-master\\_tools\disflow
 
 As it links against OpenCV-4.2.0,
-it expects the `Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll` in PATH.
+it expects `Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.0\bin` in PATH.
 
 # 
 
