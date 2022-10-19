@@ -46,9 +46,7 @@ put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\gauss" in PATH
 
 put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\bilateralAdv" in PATH
 
-put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.0\bin\opencv_world420.dll" in PATH
-
-put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\disflow\disflow.exe" in PATH
+put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.0\bin" in PATH
 
 ### pip installs
 
