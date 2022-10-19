@@ -1,4 +1,4 @@
-# this implementation works on python 3.9 and is packaged into one single script.
+## this implementation works on python 3.9 and puts all the scripts you have to run into one script
 
 ## to run this script
 
