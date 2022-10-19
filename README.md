@@ -15,7 +15,9 @@ python _tools\fewshot.py
 	--framegap 5 
 	--precision detailed 
 ```
-## if you want to process a video but it has scene changes I recommend this tool http://scenedetect.com/en/latest/
+### if you want to process a video but it has scene changes I recommend this tool for splitting the video into pieces
+
+### http://scenedetect.com/en/latest/
 
 
 ## install guide
