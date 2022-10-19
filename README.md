@@ -15,6 +15,9 @@ python _tools\fewshot.py
 	--framegap 5 
 	--precision detailed 
 ```
+## if you want to process a video but it has scene changes I recommend this tool http://scenedetect.com/en/latest/
+
+
 ## install guide
 
 ### make sure there's no spaces in the directories that lead to the Few-Shot-Patch-Based-Training-master folder
