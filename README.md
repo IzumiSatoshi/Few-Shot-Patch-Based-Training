@@ -1,12 +1,24 @@
-## this implementation works on python 3.9 and puts all the scripts you have to run into one script
+## this implementation works on python 3.9 and puts all the scripts into one script
+
+#
 
 [x] streamline everything of Few-Shot-Patch-Based-Training into one script
-[x] automatically get frames to apply style on
+
+[x] automatically get frames to apply style on with --framegap
+
 [x] gif support
+
 [] mask support (in progress)
+
 [] optimize the movement tracking scripts to run with GPU or multiple CPU (in progress)
+
 [] add ubuntu support (in progress)
-[] make a GUI (hit me up)
+
+[] make a GUI (hit me up if you have experience in that)
+
+### why this fork exists
+
+the original repo was hard to comprehend and required a lot of work to start, my goal with this repo is to make it as automized as possible.
 
 ## to run this script
 
@@ -78,9 +90,21 @@ pip install moviepy
 
 Download the latest 64 bit HDR version of Image Magick from [here](https://imagemagick.org/script/download.php#windows.)
 
-# BTW works best if your footage is super clean (no flickering etc)
+# BTW works best if your original footage is super clean (no flickering etc)
 
 # just run the command, the guide on how to do it will be displayed in the command terminal after you run the script (you'll see)
+
+#
+
+#
+
+#
+
+#
+
+#
+
+#
 
 #
 
