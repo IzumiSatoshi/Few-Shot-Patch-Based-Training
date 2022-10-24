@@ -6,9 +6,10 @@ import shutil
 
 parser = argparse.ArgumentParser(description='arguments')
 
-parser.add_argument('--videofile', type=str, help='path to your video file, for example --videofile C:\file\video\extract\video.mp4',required=True)
+parser.add_argument('--inputfile', type=str, help='path to your video file, for example --videofile C:\file\video\extract\video.mp4',required=True)
+parser.add_argument('--maskfile', type=str, help='path to your mask file, for example --videofile C:\file\video\extract\mask.mp4')
 parser.add_argument('--projectname', type=str, help='name of the project to create the directories',required=True)
-parser.add_argument('--framegap', type=int,default='5', help='number of how many skip frames',required=True)
+parser.add_argument('--framegap', type=int, help='number of how many skip frames')
 parser.add_argument('--precision', type=str, help='detailed gives less styletransfer but more accurate',choices=['detailed','normal'],required=True)
 parser.add_argument('--W', type=str, help='width',required=True)
 parser.add_argument('--H', type=str, help='height',required=True)
@@ -30,20 +31,20 @@ if args.logpath:
         newfolder_999=data_path
         os.makedirs(newfolder_999)
 else:
-    data_path = os.path.expanduser('~\Documents\\visionsofchaos\\fewshot\\data')
+    data_path = os.path.expanduser('~\Documents/visionsofchaos/fewshot/data')
 
-    if not os.path.exists(doc_path+'\\'+'visionsofchaos'):
+    if not os.path.exists(doc_path+'/'+'visionsofchaos'):
         path10= doc_path
         os.chdir(path10)
         newfolder_10='visionsofchaos'
         os.makedirs(newfolder_10)
-    if not os.path.exists(doc_path+'\\'+'visionsofchaos'+'\\'+'fewshot'):
-        path11= doc_path+'\\'+'visionsofchaos'
+    if not os.path.exists(doc_path+'/'+'visionsofchaos'+'/'+'fewshot'):
+        path11= doc_path+'/'+'visionsofchaos'
         os.chdir(path11)
         newfolder_11='fewshot'
         os.makedirs(newfolder_11)
-    if not os.path.exists(doc_path+'\\'+'visionsofchaos'+'\\'+'fewshot'+'\\'+'data'):
-        path12= doc_path+'\\'+'visionsofchaos'+'\\'+'fewshot'
+    if not os.path.exists(doc_path+'/'+'visionsofchaos'+'/'+'fewshot'+'/'+'data'):
+        path12= doc_path+'/'+'visionsofchaos'+'/'+'fewshot'
         os.chdir(path12)
         newfolder_12='data'
         os.makedirs(newfolder_12)
@@ -66,7 +67,7 @@ os.chdir(path2)
 newfolder_3='mask'
 os.makedirs(newfolder_3)    
 
-path4=path1+'\\'+newfolder
+path4=path1+'/'+newfolder
 os.chdir(path2)
 newfolder_4='output'
 os.makedirs(newfolder_4)    
@@ -78,44 +79,44 @@ newfolder_5=str(args.projectname)+'_gen'
 os.makedirs(newfolder_5)
 
  
-path6= data_path + '\\' + args.projectname + '_gen'
+path6= data_path + '/' + args.projectname + '_gen'
 os.chdir(path6)
 newfolder_6='input'
 os.makedirs(newfolder_6)
 
-path13= data_path + '\\' + args.projectname + '_gen'
+path13= data_path + '/' + args.projectname + '_gen'
 os.chdir(path13)
 newfolder_13='input_filtered'
 os.makedirs(newfolder_13)
 
-path14= data_path + '\\' + args.projectname + '_gen'
+path14= data_path + '/' + args.projectname + '_gen'
 os.chdir(path14)
 newfolder_14='input_gdisko_gauss_r10_s10'
 os.makedirs(newfolder_14)
 
-path15= data_path + '\\' + args.projectname + '_gen'
+path15= data_path + '/' + args.projectname + '_gen'
 os.chdir(path15)
 newfolder_15='input_gdisko_gauss_r10_s15'
 os.makedirs(newfolder_15)
 
-path16= data_path + '\\' + args.projectname + '_train'
+path16= data_path + '/' + args.projectname + '_train'
 os.chdir(path16)
 newfolder_16='input_gdisko_gauss_r10_s10'
 os.makedirs(newfolder_16)
 
-path17= data_path + '\\' + args.projectname + '_train'
+path17= data_path + '/' + args.projectname + '_train'
 os.chdir(path17)
 newfolder_17='input_gdisko_gauss_r10_s15'
 os.makedirs(newfolder_17)
 
 
 
-path7= data_path + '\\' + args.projectname + '_gen'
+path7= data_path + '/' + args.projectname + '_gen'
 os.chdir(path6)
 newfolder_7='mask'
 os.makedirs(newfolder_7)    
 
-path8= data_path + '\\' + args.projectname + '_gen'
+path8= data_path + '/' + args.projectname + '_gen'
 os.chdir(path6)
 newfolder_8='output'
 os.makedirs(newfolder_8)   
@@ -136,10 +137,17 @@ newfolder_31=str(args.projectname)+'_flow/flowbwd'
 os.makedirs(newfolder_31)
 
 
-train_filtered = data_path+str(args.projectname)+'_train'+'\\'+'input_filtered'
+train_filtered = data_path+str(args.projectname)+'_train'+'/'+'input_filtered'
+
+import moviepy.editor as mp
+inputfile = args.inputfile
+if inputfile.endswith('.gif'):
+    clip = mp.VideoFileClip(args.inputfile)
+    clip.write_videofile("myvideo.mp4")
 
 #convert video
 def video_to_frames(input_loc, output_loc):
+    args = parser.parse_args()
     #Function to extract frames from input video file
     #and save them as separate frames in an output directory.
     #Args:
@@ -147,7 +155,10 @@ def video_to_frames(input_loc, output_loc):
     #    output_loc: Output directory to save the frames.
     #Returns:
     #    None
-    
+    import moviepy.editor as mp
+    clip = mp.VideoFileClip(input_loc1)
+    clip_resized = clip.resize((args.W,args.H)) # make the height 360px ( According to moviePy documenation The width is then computed so that the width/height ratio is conserved.)
+    clip_resized.write_videofile("movie_resized.mp4")
     try:
         os.mkdir(output_loc)
     except OSError:
@@ -181,8 +192,13 @@ def video_to_frames(input_loc, output_loc):
             print ("It took %d seconds forconversion." % (time_end-time_start))
             break
 if __name__=="__main__":
-    input_loc = args.videofile
-    output_loc = data_path + '\\' + args.projectname + '_gen\\input_filtered'
+    if inputfile.endswith('.gif'):
+        input_loc1 = "myvideo.mp4"
+        input_loc = "movie_resized.mp4"
+    else:
+        input_loc1 = args.inputfile
+        input_loc = "movie_resized.mp4"
+    output_loc = data_path + '/' + args.projectname + '_gen/input_filtered'
     video_to_frames(input_loc, output_loc)
 
 
@@ -193,43 +209,50 @@ import shutil
 print (" ")
 print ("making frames with your --framegap value to gen_filtered folder")
 
-train_filtered = data_path+'\\'+str(args.projectname)+'_train'+'\\'+'input_filtered/'
-gen_filtered = data_path + '\\' + args.projectname + '_gen\\input_filtered/'
-gen_filtered_batch = data_path + '\\' + args.projectname + '_gen\\input_filtered/*'
-gen_mask = data_path + '\\' + args.projectname + '_gen\\mask/'
-train_output = data_path+'\\'+str(args.projectname)+'_train'+'\\'+'output/'
-train_output_batch = data_path+'\\'+str(args.projectname)+'_train'+'\\'+'output/*'
-train_filtered = data_path + '\\' + args.projectname + '_train\\input_filtered/'
-train_filtered_batch = data_path + '\\' + args.projectname + '_train\\input_filtered/*'
-train_mask = data_path + '\\' + args.projectname + '_train\\mask/'
-train_root = data_path + '\\' + args.projectname + '_train/'
-disco1010path = data_path + '\\' + args.projectname + '_gen\\res__P_disco1010'
-disco1015path = data_path + '\\' + args.projectname + '_gen\\res__P_disco1015'
+train_filtered = data_path+'/'+str(args.projectname)+'_train'+'/'+'input_filtered/'
+gen_filtered = data_path + '/' + args.projectname + '_gen/input_filtered/'
+gen_filtered_batch = data_path + '/' + args.projectname + '_gen/input_filtered/*'
+gen_mask = data_path + '/' + args.projectname + '_gen/mask/'
+gen_mask2 = data_path + '/' + args.projectname + '_gen/mask'
+train_output = data_path+'/'+str(args.projectname)+'_train'+'/'+'output/'
+train_output_batch = data_path+'/'+str(args.projectname)+'_train'+'/'+'output/*'
+train_filtered = data_path + '/' + args.projectname + '_train/input_filtered/'
+train_filtered_batch = data_path + '/' + args.projectname + '_train/input_filtered/*'
+train_mask = data_path + '/' + args.projectname + '_train/mask/'
+train_root = data_path + '/' + args.projectname + '_train/'
+disco1010path = data_path + '/' + args.projectname + '_gen/res__P_disco1010'
+disco1015path = data_path + '/' + args.projectname + '_gen/res__P_disco1015'
 
 
 video_length = len(os.listdir(gen_filtered))
 print ("Number of frames: ", video_length)
-print ("exporting framegap frames")
 
-if video_length <100:
-    for i in range(1, 9, args.framegap):
-        print (i)  
-        shutil.copy2(gen_filtered+'\\'+'00'+str(i)+'.png', train_filtered)
-    for i in range(10, video_length, args.framegap):
-        print (i)  
-        shutil.copy2(gen_filtered+'\\'+'0'+str(i)+'.png', train_filtered)
+if args.framegap:
+    print ("exporting framegap frames")
+
+    if video_length <100:
+        for i in range(1, 9, args.framegap):
+            print (i)  
+            shutil.copy2(gen_filtered+'/'+'00'+str(i)+'.png', train_filtered)
+        for i in range(10, video_length, args.framegap):
+            print (i)  
+            shutil.copy2(gen_filtered+'/'+'0'+str(i)+'.png', train_filtered)
         
-if video_length >100:
-    for i in range(1, 9, args.framegap):
-        print (i)  
-        shutil.copy2(gen_filtered+'\\'+'00'+str(i)+'.png', train_filtered)
-    for i in range(10, 99, args.framegap):
-        print (i)  
-        shutil.copy2(gen_filtered+'\\'+'0'+str(i)+'.png', train_filtered)
-    for i in range(100, video_length, args.framegap):
-        print (i)  
-        shutil.copy2(gen_filtered+'\\'+str(i)+'.png', train_filtered)
-print ("exported framegap frames to " ,train_filtered)        
+    if video_length >100:
+        for i in range(1, 9, args.framegap):
+            print (i)  
+            shutil.copy2(gen_filtered+'/'+'00'+str(i)+'.png', train_filtered)
+        for i in range(10, 99, args.framegap):
+            print (i)  
+            shutil.copy2(gen_filtered+'/'+'0'+str(i)+'.png', train_filtered)
+        for i in range(100, video_length, args.framegap):
+            print (i)  
+            shutil.copy2(gen_filtered+'/'+str(i)+'.png', train_filtered)
+    print ("exported framegap frames to " ,train_filtered)      
+else:
+    print("you didn't provide a framegap value so you'll have to choose the frames that you display the style on yourself")
+    print("choose a couple frames in ",gen_filtered,"and put them in",train_filtered)
+    frowframe_run1 = (input("have your read the above and put your frames in the folder? press ENTER if you do"))
 
 import subprocess
 
@@ -239,19 +262,48 @@ imageread = gen_filtered +'001.png'
 import cv2
 img = cv2.imread(imageread)
 print(img.shape)
-if( img.shape != (args.H, args.W, 3) ):
+'''if( img.shape != (args.H, args.W, 3) ):
     subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", gen_filtered_batch])#, "*.png", "-quality", "100", gen_filtered])
     print ("frames in ",gen_filtered, "resized") 
     subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", train_filtered_batch])#, "*.png", "-quality", "100", train_filtered])
     print ("frames in ",train_filtered, "resized")
 if( img.shape == (args.H, args.W, 3) ):
-    print('no resizing needed')
+    print('no resizing needed')'''
 
-     
-subprocess.run(['magick', 'mogrify', '-brightness-contrast', '200x0', '-path', gen_mask, '-format','png', gen_filtered_batch])
-print ("masks in " ,gen_mask, "made") 
-subprocess.run(['magick', 'mogrify', '-brightness-contrast', '200x0', '-path', train_mask, '-format','png', train_filtered_batch])
-print ("masks in " ,train_mask, "made") 
+if args.maskfile:
+    input_loc1 = args.maskfile
+    input_loc = "movie_resized.mp4"
+    output_loc = data_path + '/' + args.projectname + '_gen/mask'
+    video_to_frames(input_loc, output_loc)
+    if args.framegap:
+        if video_length <100:
+            for i in range(1, 9, args.framegap):
+                print (i)  
+                shutil.copy2(gen_mask2+'/'+'00'+str(i)+'.png', train_mask)
+            for i in range(10, video_length, args.framegap):
+                print (i)  
+                shutil.copy2(gen_mask2+'/'+'0'+str(i)+'.png', train_mask)
+        
+        if video_length >100:
+            for i in range(1, 9, args.framegap):
+                print (i)  
+                shutil.copy2(gen_mask2+'/'+'00'+str(i)+'.png', train_mask)
+            for i in range(10, 99, args.framegap):
+                print (i)  
+                shutil.copy2(gen_mask2+'/'+'0'+str(i)+'.png', train_mask)
+            for i in range(100, video_length, args.framegap):
+                print (i)  
+                shutil.copy2(gen_mask2+'/'+str(i)+'.png', train_mask)
+        print ("exported framegap frames to " ,train_mask)      
+    else:
+        print("you didn't provide a framegap value so you'll have to choose the frames that you display the style on yourself")
+        print("copy your previously chosen framenumbers but now in this folder = ",gen_mask2,"and put them in",train_mask)
+        frowframe_run1 = (input("have your read the above and put your frames in the folder? press ENTER if you do"))
+else:     
+    subprocess.run(['magick', 'mogrify', '-brightness-contrast', '200x0', '-path', gen_mask, '-format','png', gen_filtered_batch])
+    print ("masks in " ,gen_mask, "made") 
+    subprocess.run(['magick', 'mogrify', '-brightness-contrast', '200x0', '-path', train_mask, '-format','png', train_filtered_batch])
+    print ("masks in " ,train_mask, "made") 
 
 prjnm = str(args.projectname)
 frmgp = str(args.framegap)
@@ -265,7 +317,7 @@ print("")
 print("preparation done, apply desired effects on the images that are in '",train_filtered,"' and export those to '",train_output,"'")
 print("")
 print("")
-print("the flowframe prediction takes a while to render but it renders on cpu so u can create the export frames with effects with your GPU in the meanwhile")
+print("the frame movement prediction takes a while to render but it renders on CPU, so u can create the export frames with effects with your GPU in the meanwhile")
 print("")
 print("")
 frowframe_run1 = (input("have your read the above and understand? press ENTER if you do"))
@@ -280,11 +332,21 @@ print("")
 if frowframe_run2:
     print("")
     print("")    
-frowframe_run = (input("press ENTER to start rendering the flowframes"))
+frowframe_run = (input("press ENTER to start rendering the movement prediction frames"))
 if frowframe_run:
     print("")
-    print("")  
-subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+    print("") 
+    
+if args.framegap:
+    if args.maskfile:
+        subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath,'--mask', '1'])
+    else:
+        subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+else:
+    if args.maskfile:
+        subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed','--logpath',logpath,'--mask', '1'])
+    else:
+        subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
 
 
 print("")
@@ -301,16 +363,24 @@ import cv2
 img1 = cv2.imread(imageread1)
 if args.precision == 'detailed':
     print("results will appear in ",disco1010path,"every 10000 steps")
+    print("")
+    print("")
 else:
     print("results will appear in ",disco1015path,"every 10000 steps")
-#if( img1.shape != (args.H, args.W, 3) ):
-subprocess.run(["magick","mogrify", "-resize", resizesize, "-quality", "100", train_output_batch]) 
+    print("")
+    print("")
+if( img.shape != (args.W, args.H, 3) ):
+    subprocess.run(["magick","mogrify", "-resize", resizesize, "-quality", "100", train_output_batch]) # magick mogrify -resize 512x1024! -quality 100 C:\deepdream-test\Few-Shot-Patch-Based-Training-master\logs\kind_train\output/*
     
 if args.precision == 'detailed':
         print('python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        print("")
+        print("")
         subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
         
 else:
+        print("")
+        print("")
         print('python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
         subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
         
