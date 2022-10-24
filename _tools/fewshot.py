@@ -10,7 +10,7 @@ parser.add_argument('--inputfile', type=str, help='path to your video file, for 
 parser.add_argument('--maskfile', type=str, help='path to your mask file, for example --videofile C:\file\video\extract\mask.mp4')
 parser.add_argument('--projectname', type=str, help='name of the project to create the directories',required=True)
 parser.add_argument('--framegap', type=int, help='number of how many skip frames')
-parser.add_argument('--precision', type=str, help='detailed gives less styletransfer but more accurate',choices=['detailed','normal'],required=True)
+parser.add_argument('--precision', type=str, help='detailed gives less styletransfer but more accurate',choices=['detailed','normal','webcam'],required=True)
 parser.add_argument('--W', type=str, help='width',required=True)
 parser.add_argument('--H', type=str, help='height',required=True)
 parser.add_argument('--logpath', type=str, help='path where your training happens',default = 'logs')
@@ -21,6 +21,7 @@ tools_all = cwd + '/_tools/tools_all.py'
 trainur = cwd + '/train.py'
 disco1010 = cwd + '/_config/reference_P_disco1010.yaml'
 disco1015 = cwd + '/_config/reference_P_disco1015.yaml'
+webcam = cwd + '/_config/reference_webcam.yaml'
 
 doc_path = os.path.expanduser('~\Documents')
 if args.logpath:
@@ -336,17 +337,19 @@ frowframe_run = (input("press ENTER to start rendering the movement prediction f
 if frowframe_run:
     print("")
     print("") 
-    
-if args.framegap:
-    if args.maskfile:
-        subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath,'--mask', '1'])
-    else:
-        subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+elif args.precision == 'webcam':
+    print("webcam doesn't use movement prediction, skipping..")
 else:
-    if args.maskfile:
-        subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed','--logpath',logpath,'--mask', '1'])
+    if args.framegap:
+        if args.maskfile:
+            subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath,'--mask', '1'])
+        else:
+            subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
     else:
-        subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+        if args.maskfile:
+            subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed','--logpath',logpath,'--mask', '1'])
+        else:
+            subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
 
 
 print("")
@@ -377,7 +380,11 @@ if args.precision == 'detailed':
         print("")
         print("")
         subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
-        
+elif args.precision == 'webcam':
+        print('python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        print("")
+        print("")
+        subprocess.run(['python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
 else:
         print("")
         print("")
