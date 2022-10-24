@@ -10,10 +10,11 @@ parser.add_argument('--inputfile', type=str, help='path to your video file, for 
 parser.add_argument('--maskfile', type=str, help='path to your mask file, for example --videofile C:\file\video\extract\mask.mp4')
 parser.add_argument('--projectname', type=str, help='name of the project to create the directories',required=True)
 parser.add_argument('--framegap', type=int, help='number of how many skip frames')
-parser.add_argument('--precision', type=str, help='detailed gives less styletransfer but more accurate',choices=['detailed','normal','webcam'],required=True)
+parser.add_argument('--precision', type=str, help='detailed gives less styletransfer but more accurate',choices=['detailed_flow','undetailed_flow','webcam_test', 'normal', 'normal_slow'],required=True)
 parser.add_argument('--W', type=str, help='width',required=True)
 parser.add_argument('--H', type=str, help='height',required=True)
 parser.add_argument('--logpath', type=str, help='path where your training happens',default = 'logs')
+parser.add_argument('--log_interval', type=str, help='path where your training happens',default = '10000')
 args = parser.parse_args()
 
 cwd = os.getcwd()
@@ -21,7 +22,10 @@ tools_all = cwd + '/_tools/tools_all.py'
 trainur = cwd + '/train.py'
 disco1010 = cwd + '/_config/reference_P_disco1010.yaml'
 disco1015 = cwd + '/_config/reference_P_disco1015.yaml'
+
 webcam = cwd + '/_config/reference_webcam.yaml'
+normal = cwd + '/_config/reference_P.yaml'
+normal2 = cwd + '/_config/reference_F.yaml'
 
 doc_path = os.path.expanduser('~\Documents')
 if args.logpath:
@@ -82,34 +86,13 @@ os.makedirs(newfolder_5)
  
 path6= data_path + '/' + args.projectname + '_gen'
 os.chdir(path6)
-newfolder_6='input'
-os.makedirs(newfolder_6)
+#newfolder_6='input'
+#os.makedirs(newfolder_6)
 
 path13= data_path + '/' + args.projectname + '_gen'
 os.chdir(path13)
 newfolder_13='input_filtered'
 os.makedirs(newfolder_13)
-
-path14= data_path + '/' + args.projectname + '_gen'
-os.chdir(path14)
-newfolder_14='input_gdisko_gauss_r10_s10'
-os.makedirs(newfolder_14)
-
-path15= data_path + '/' + args.projectname + '_gen'
-os.chdir(path15)
-newfolder_15='input_gdisko_gauss_r10_s15'
-os.makedirs(newfolder_15)
-
-path16= data_path + '/' + args.projectname + '_train'
-os.chdir(path16)
-newfolder_16='input_gdisko_gauss_r10_s10'
-os.makedirs(newfolder_16)
-
-path17= data_path + '/' + args.projectname + '_train'
-os.chdir(path17)
-newfolder_17='input_gdisko_gauss_r10_s15'
-os.makedirs(newfolder_17)
-
 
 
 path7= data_path + '/' + args.projectname + '_gen'
@@ -119,23 +102,51 @@ os.makedirs(newfolder_7)
 
 path8= data_path + '/' + args.projectname + '_gen'
 os.chdir(path6)
-newfolder_8='output'
-os.makedirs(newfolder_8)   
+#newfolder_8='output'
+#os.makedirs(newfolder_8)   
 
-path9= data_path
-os.chdir(path9)
-newfolder_9=str(args.projectname)+'_flow'
-os.makedirs(newfolder_9)
+if args.precision == 'detailed_flow':
+    flow = True
+elif args.precision == 'undetailed_flow':
+    flow = True
+else:
+    flow = False
+    
+if flow == True: 
+    path9= data_path
+    os.chdir(path9)
+    newfolder_9=str(args.projectname)+'_flow'
+    os.makedirs(newfolder_9)
 
-path9= data_path
-os.chdir(path9)
-newfolder_30=str(args.projectname)+'_flow/flowfwd'
-os.makedirs(newfolder_30)
+    path9= data_path
+    os.chdir(path9)
+    newfolder_30=str(args.projectname)+'_flow/flowfwd'
+    os.makedirs(newfolder_30)
 
-path9= data_path
-os.chdir(path9)
-newfolder_31=str(args.projectname)+'_flow/flowbwd'
-os.makedirs(newfolder_31)
+    path9= data_path
+    os.chdir(path9)
+    newfolder_31=str(args.projectname)+'_flow/flowbwd'
+    os.makedirs(newfolder_31)
+    if args.precision == 'detailed_flow':
+        path14= data_path + '/' + args.projectname + '_gen'
+        os.chdir(path14)
+        newfolder_14='input_gdisko_gauss_r10_s10'
+        os.makedirs(newfolder_14)
+
+        path16= data_path + '/' + args.projectname + '_train'
+        os.chdir(path16)
+        newfolder_16='input_gdisko_gauss_r10_s10'
+        os.makedirs(newfolder_16)
+    elif args.precision == 'undetailed_flow':
+        path15= data_path + '/' + args.projectname + '_gen'
+        os.chdir(path15)
+        newfolder_15='input_gdisko_gauss_r10_s15'
+        os.makedirs(newfolder_15)
+
+        path17= data_path + '/' + args.projectname + '_train'
+        os.chdir(path17)
+        newfolder_17='input_gdisko_gauss_r10_s15'
+        os.makedirs(newfolder_17)
 
 
 train_filtered = data_path+str(args.projectname)+'_train'+'/'+'input_filtered'
@@ -210,6 +221,8 @@ import shutil
 print (" ")
 print ("making frames with your --framegap value to gen_filtered folder")
 
+gen = data_path + '/' + args.projectname + '_gen/'
+train = data_path + '/' + args.projectname + '_train/'
 train_filtered = data_path+'/'+str(args.projectname)+'_train'+'/'+'input_filtered/'
 gen_filtered = data_path + '/' + args.projectname + '_gen/input_filtered/'
 gen_filtered_batch = data_path + '/' + args.projectname + '_gen/input_filtered/*'
@@ -221,8 +234,12 @@ train_filtered = data_path + '/' + args.projectname + '_train/input_filtered/'
 train_filtered_batch = data_path + '/' + args.projectname + '_train/input_filtered/*'
 train_mask = data_path + '/' + args.projectname + '_train/mask/'
 train_root = data_path + '/' + args.projectname + '_train/'
-disco1010path = data_path + '/' + args.projectname + '_gen/res__P_disco1010'
-disco1015path = data_path + '/' + args.projectname + '_gen/res__P_disco1015'
+
+if flow == True:
+    disco1010path = data_path + '/' + args.projectname + '_gen/res__P_disco1010'
+    disco1015path = data_path + '/' + args.projectname + '_gen/res__P_disco1015'
+resppath = data_path + '/' + args.projectname + '_gen/res__P'
+resfpath = data_path + '/' + args.projectname + '_gen/res__F'
 
 
 video_length = len(os.listdir(gen_filtered))
@@ -311,6 +328,12 @@ frmgp = str(args.framegap)
 video_length2 = str(video_length)
 logpath = str(data_path)
 
+if flow == True:
+    deletevideo = train+"movie_resized.mp4"
+else:
+    deletevideo = gen+"movie_resized.mp4"
+os.remove(deletevideo)
+
 print("")
 print("")
 print("")
@@ -318,7 +341,10 @@ print("")
 print("preparation done, apply desired effects on the images that are in '",train_filtered,"' and export those to '",train_output,"'")
 print("")
 print("")
-print("the frame movement prediction takes a while to render but it renders on CPU, so u can create the export frames with effects with your GPU in the meanwhile")
+if args.precision == 'detailed_flow':  
+    print("the frame movement prediction takes a while to render but it renders on CPU, so u can create the export frames with effects with your GPU in the meanwhile")
+elif args.precision == 'undetailed_flow':  
+    print("the frame movement prediction takes a while to render but it renders on CPU, so u can create the export frames with effects with your GPU in the meanwhile")
 print("")
 print("")
 frowframe_run1 = (input("have your read the above and understand? press ENTER if you do"))
@@ -332,24 +358,47 @@ print("")
 print("")
 if frowframe_run2:
     print("")
-    print("")    
-frowframe_run = (input("press ENTER to start rendering the movement prediction frames"))
-if frowframe_run:
-    print("")
-    print("") 
-elif args.precision == 'webcam':
-    print("webcam doesn't use movement prediction, skipping..")
+    print("")  
+if args.precision == 'detailed_flow':    
+    frowframe_run = (input("press ENTER to start rendering the movement prediction frames"))
+elif args.precision == 'undetailed_flow':
+    frowframe_run = (input("press ENTER to start rendering the movement prediction frames"))
 else:
-    if args.framegap:
-        if args.maskfile:
-            subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath,'--mask', '1'])
+    print("")
+    print("")
+if args.precision == 'detailed_flow':      
+    if frowframe_run:
+        print("")
+        print("") 
+elif args.precision == 'undetailed_flow':      
+    if frowframe_run:
+        print("")
+        print("") 
+if args.precision == 'detailed_flow':
+        if args.framegap:
+            if args.maskfile:
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'])
+            else:
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
         else:
-            subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
-    else:
-        if args.maskfile:
-            subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed','--logpath',logpath,'--mask', '1'])
+            if args.maskfile:
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'])
+            else:
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+elif args.precision == 'undetailed_flow':
+        if args.framegap:
+            if args.maskfile:
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'])
+            else:
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
         else:
-            subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+            if args.maskfile:
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'])
+            else:
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+else:
+    print("webcam_test, normal, normal_slow don't use movement prediction, skipping..")
+
 
 
 print("")
@@ -364,30 +413,51 @@ if export_done:
 imageread1 = train_output +'001.png'
 import cv2
 img1 = cv2.imread(imageread1)
-if args.precision == 'detailed':
-    print("results will appear in ",disco1010path,"every 10000 steps")
-    print("")
-    print("")
-else:
-    print("results will appear in ",disco1015path,"every 10000 steps")
-    print("")
-    print("")
-if( img.shape != (args.W, args.H, 3) ):
+log_interval = args.log_interval
+#print(img1.shape)
+#print(args.H, args.W, "3")
+if( img1.shape != (args.H, args.W, 3) ):
     subprocess.run(["magick","mogrify", "-resize", resizesize, "-quality", "100", train_output_batch]) # magick mogrify -resize 512x1024! -quality 100 C:\deepdream-test\Few-Shot-Patch-Based-Training-master\logs\kind_train\output/*
-    
-if args.precision == 'detailed':
-        print('python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
-        print("")
-        print("")
-        subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
-elif args.precision == 'webcam':
-        print('python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
-        print("")
-        print("")
-        subprocess.run(['python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
 else:
+    print("W and H are the same, skipping resize")
+if args.precision == 'detailed_flow':
+        print("results will appear in ",disco1010path,"every" ,log_interval,"steps")
         print("")
         print("")
-        print('python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
-        subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', '10000', '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        print('python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        print("")
+        print("")
+        subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+elif args.precision == 'webcam_test':
+        print("results will appear in ",resppath,"every" ,log_interval,"steps")
+        print("")
+        print("")
+        print('python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        print("")
+        print("")
+        subprocess.run(['python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+elif args.precision == 'undetailed_flow':
+        print("results will appear in ",disco1015path,"every" ,log_interval,"steps")
+        print("")
+        print("")
+        print('python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        print("")
+        print("")
+        subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+elif args.precision == 'normal':
+        print("results will appear in ",resppath,"every" ,log_interval,"steps")
+        print("")
+        print("")
+        print('python', '-B', trainur, '--config', normal, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        print("")
+        print("")
+        subprocess.run(['python', '-B', trainur, '--config', normal, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+elif args.precision == 'normal_slow':
+        print("results will appear in ",resfpath,"every" ,log_interval,"steps")
+        print("")
+        print("")
+        print('python', '-B', trainur, '--config', normal2, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
+        print("")
+        print("")
+        subprocess.run(['python', '-B', trainur, '--config', normal2, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
         

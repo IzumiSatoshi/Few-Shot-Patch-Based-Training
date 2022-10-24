@@ -35,7 +35,7 @@ parser.add_argument('--projectname', type=str, help='name of the project_')
 #parser.add_argument('--gdisko15dir', type=str, help='paste location for diskodir')
 parser.add_argument('--cpu'            , action='store_true'                  )
 parser.add_argument('--framegap', type=int, help='number of how many skip frames')
-parser.add_argument('--precision', type=str, help='detailed gives less styletransfer but more accurate',choices=['detailed','normal'],required=True)
+parser.add_argument('--precision', type=str, help='detailed gives less styletransfer but more accurate',choices=['detailed_flow','undetailed_flow'],required=True)
 parser.add_argument('--logpath', type=str, help='path where your training happens',default = 'logs')
 parser.add_argument('--mask', type=str, help='enable mask')
 args = parser.parse_args()
@@ -158,7 +158,7 @@ for mask in masks_list_dir:
     
 frameFirst = 1 
 lastFrame= args.frames
-if args.precision == 'detailed':
+if args.precision == 'detailed_flow':
     os.system(f"gauss.exe {maskFiles} {flowFwdFiles} {flowBwdFiles} {frameFirst} {lastFrame} {len(masks_list_dir)} {masks_str} 10 10 {gdisko_gauss_r10_s10_files}")
 else:
     os.system(f"gauss.exe {maskFiles} {flowFwdFiles} {flowBwdFiles} {frameFirst} {lastFrame} {len(masks_list_dir)} {masks_str} 10 15 {gdisko_gauss_r10_s15_files}")
@@ -168,7 +168,7 @@ import os
 import shutil
 
 
-if args.precision == 'detailed':
+if args.precision == 'detailed_flow':
     print (" ")
     print ("making frames with your --framegap value",args.framegap," to " ,args.projectname,"_gen/input_gdisko_gauss_r10_s10")  
 
