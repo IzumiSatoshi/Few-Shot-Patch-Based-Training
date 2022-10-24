@@ -5,6 +5,7 @@ from PIL import Image
 import numpy as np
 import torch.utils.data
 import torch
+import torch.nn as nn
 import cv2
 
 
@@ -16,8 +17,11 @@ if __name__ == "__main__":
     parser.add_argument("--resolution", type=int, nargs=2, metavar=('width', 'height'), default=(480, 640))
     parser.add_argument("--show_original", type=int, default=0)
     parser.add_argument("--resize", type=int, default=256)
+    parser.add_argument("--webcam_number", type=int, default=0)
+    parser.add_argument("--video_path", type=str)
     args = parser.parse_args()
-
+    
+    
     generator = (torch.load(args.checkpoint, map_location=lambda storage, loc: storage))
     generator.eval()
 
@@ -29,19 +33,27 @@ if __name__ == "__main__":
         generator = generator.type(torch.half)
 
     transform = build_transform()
-
-    cap = cv2.VideoCapture(0)
+    if args.video_path:
+        cap = cv2.VideoCapture(args.video_path)
+    else:
+        cap = cv2.VideoCapture(args.webcam_number)
     width, height = args.resolution
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-
+    #cap.set(cv2.CAP_PROP_CHANNEL, 1)
+    frame_counter = 0
     while True:
         ret, frame = cap.read()
         if not ret:
             cap.release()
             cv2.destroyAllWindows()
             exit()
-
+        frame_counter += 1
+        #If the last frame is reached, reset the capture and the frame_counter
+        if args.video_path:
+            if frame_counter == cap.get(cv2.CAP_PROP_FRAME_COUNT):
+                frame_counter = 0 #Or whatever as long as it is the same as next line
+                cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
         x = int(frame.shape[0] / 2)
         y = int(frame.shape[1] / 2)
         res = min(x, y)
@@ -53,6 +65,7 @@ if __name__ == "__main__":
         if device.lower() != "cpu":
             net_in = net_in.type(torch.half)
         net_out = generator(net_in)
+        
         im = ((net_out[0].clamp(-1, 1) + 1) * 127.5).permute((1, 2, 0)).cpu().data.numpy().astype(np.uint8)
         im = cv2.cvtColor(cv2.resize(im, (2*res, 2*res)), cv2.COLOR_RGB2BGR)
         if args.show_original == 1:
@@ -63,5 +76,4 @@ if __name__ == "__main__":
             cap.release()
             cv2.destroyAllWindows()
             exit()
-            
             
