@@ -16,6 +16,10 @@
 
 [] make a GUI (hit me up if you have experience in that)
 
+[] support videos over 1000 frames
+
+
+
 ### why this fork exists
 
 the original repo was hard to comprehend and required a lot of work to start, my goal with this repo is to make it as automized as possible.
