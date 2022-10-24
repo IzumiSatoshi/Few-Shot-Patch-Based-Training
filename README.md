@@ -42,6 +42,8 @@ python _tools\fewshot.py
 	--framegap 5 
 	--precision detailed 
 ```
+### the terminal will pause after processing the frames and folders, you can then take the frames from the folder it tells you to take them from and apply a style to those and then export the frames to the folder it tells you, then press enter a couple times to resume the script :)
+
 ### if you want to process a video but it has scene changes I recommend this tool for splitting the video into pieces
 
 ### http://scenedetect.com/en/latest/
