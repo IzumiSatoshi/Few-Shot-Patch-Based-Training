@@ -12,11 +12,11 @@
 
 [] optimize the movement tracking scripts to run with GPU or multiple CPU (in progress)
 
-[] add ubuntu support (in progress)
+[] add linux support (in progress)
 
 [] make a GUI (hit me up if you have experience in that)
 
-[] support videos over 1000 frames
+[] support videos over 1000 frames (in progress)
 
 
 
@@ -34,7 +34,7 @@ cd C:/path/to/Few-Shot-Patch-Based-Training-master
 
 ``` 
 python _tools\fewshot.py 
-	--videofile "C:\path\to\input\video\video.mp4" 
+	--inputfile "C:\full\path\to\input\video\video.mp4" 
 	--projectname project2 
 	--logpath logs 
 	--W 1024 
