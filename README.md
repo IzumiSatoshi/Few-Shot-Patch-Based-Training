@@ -79,6 +79,8 @@ put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.
 (venv don't work atm (probably because of the subprocess things), if you find a fix please do a pull request)
 
 ``` 
+pip install pysimplegui
+pip install Gooey
 pip install opencv-python
 pip install scikit-build
 pip install cython
