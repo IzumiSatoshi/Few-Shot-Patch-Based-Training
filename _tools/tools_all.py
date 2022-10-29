@@ -47,6 +47,9 @@ else:
 gen = data_path + "/" + args.projectname + "_gen"
 train = data_path + "/" + args.projectname + "_train"
 flow = data_path + "/" + args.projectname + "_flow"
+print('') 
+print('') 
+print('starting disflow tool') 
 ##TOOL_DISFLOW##   
 ################ MAKE CHANGES HERE #################
 inputdir = ""              # path to the input sequence PNGs
@@ -83,8 +86,9 @@ frameStep  = -1
 for frame in range(firstFrame,lastFrame+frameStep,frameStep):
     os.system("disflow %s %s %s"%(inputFiles%(frame),inputFiles%(frame-frameStep),flwBwdFile%(frame)))
     
- 
-  
+print('') 
+print('') 
+print('starting bilateralAdv tool') 
 ##TOOL_BILATERALADV
 ################ MAKE CHANGES HERE #################
 inputFileFormat = "%03d"            # name of input files, e.g., %03d if files are named 001.png, 002.png
@@ -112,7 +116,9 @@ commands = [(frame) for frame in range(firstFrame, lastFrame + frameStep, frameS
 
 
 
-
+print('') 
+print('') 
+print('starting gauss tool') 
 ##TOOL_GAUSS##
 ################ MAKE CHANGES HERE #################
 inputFileFormat = "%03d"    # name of input files, e.g., %03d if files are named 001.png, 002.png
@@ -122,11 +128,14 @@ if args.mask == '1':
     #maskDir = str(args.geninputfilteredmask) ??
     maskFiles = maskDir + "/" + inputFileFormat + "." + args.extension
 else:
-    maskDir = train + "/" "input_filtered"          # mask dir, essentially leading frames from where the gaussians will be propagated
+    """maskDir = train + "/" "input_filtered"          # mask dir, essentially leading frames from where the gaussians will be propagated
     ## fix maskdir so it works with args.geninputfilteredmask
     #maskDir = str(args.geninputfilteredmask) ??
-    maskFiles = train + "/" "input_filtered" + "/" + inputFileFormat + "." + args.extension
-
+    maskFiles = train + "/" "input_filtered" + "/" + inputFileFormat + "." + args.extension"""
+    maskDir = train + "/" "mask"          # mask dir, essentially leading frames from where the gaussians will be propagated
+    ## fix maskdir so it works with args.geninputfilteredmask
+    #maskDir = str(args.geninputfilteredmask) ??
+    maskFiles = maskDir + "/" + inputFileFormat + "." + args.extension
 
 flowFwdFiles = flow + "/" + "flowfwd" + "/" + inputFileFormat + ".A2V2f"  # path to the forward flow files (computed by _tools/disflow)
 flowBwdFiles = flow + "/" + "flowbwd" + "/" + inputFileFormat + ".A2V2f"   # path to the backward flow files (computed by _tools/disflow)
@@ -143,12 +152,12 @@ gdisko_gauss_r10_s10_files = gdisko_gauss_r10_s10_dir + "/" + inputFileFormat + 
 gdisko_gauss_r10_s15_files = gdisko_gauss_r10_s15_dir + "/" + inputFileFormat + "." + args.extension 
 ####################################################
 
-
-if not os.path.exists(gdisko_gauss_r10_s10_dir):
-    os.mkdir(gdisko_gauss_r10_s10_dir)
-    
-if not os.path.exists(gdisko_gauss_r10_s15_dir):
-    os.mkdir(gdisko_gauss_r10_s15_dir)
+if args.precision == 'detailed_flow':
+    if not os.path.exists(gdisko_gauss_r10_s10_dir):
+        os.mkdir(gdisko_gauss_r10_s10_dir)
+else:    
+    if not os.path.exists(gdisko_gauss_r10_s15_dir):
+        os.mkdir(gdisko_gauss_r10_s15_dir)
 
 masks_str = ""
 masks_list_dir = os.listdir(maskDir)
