@@ -1,0 +1,15 @@
+ruamel.yaml
+pysimplegui
+Gooey
+opencv-python
+scikit-build
+cython
+Pillow
+PyYAML==5.4
+scikit-image==0.18.1
+scipy==1.6.2
+tensorflow==2.7.0
+torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html  
+numpy==1.21.2
+moviepy
+numba

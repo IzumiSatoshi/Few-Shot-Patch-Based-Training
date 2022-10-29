@@ -1,2 +1,7 @@
 /.idea
 /__pycache__
+venv/
+_tools/disflow/opencv-4.2.0
+logs/
+*.mp4
+repo/magick-setup.exe
