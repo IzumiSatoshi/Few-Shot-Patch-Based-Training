@@ -40,7 +40,7 @@ python _tools\fewshot.py
 	--W 1024 
 	--H 512 
 	--framegap 5 
-	--precision detailed 
+	--precision detailed_flow
 ```
 ### the terminal will pause after processing the frames and folders, you can then take the frames from the folder it tells you to take them from and apply a style to those and then export the frames to the folder it tells you, then press enter a couple times to resume the script :)
 
@@ -93,6 +93,7 @@ pip install tensorflow==2.7.0
 pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html  
 pip install numpy==1.21.2
 pip install moviepy
+pip install numba
 ``` 
 
 ### imagemagick install

@@ -281,9 +281,9 @@ import cv2
 img = cv2.imread(imageread)
 print(img.shape)
 '''if( img.shape != (args.H, args.W, 3) ):
-    subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", gen_filtered_batch])#, "*.png", "-quality", "100", gen_filtered])
+    subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", gen_filtered_batch])#, "*.png", "-quality", "100", gen_filtered], shell=True)
     print ("frames in ",gen_filtered, "resized") 
-    subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", train_filtered_batch])#, "*.png", "-quality", "100", train_filtered])
+    subprocess.run(["magick", "mogrify", "-resize", resizesize, "-quality", "100", train_filtered_batch])#, "*.png", "-quality", "100", train_filtered], shell=True)
     print ("frames in ",train_filtered, "resized")
 if( img.shape == (args.H, args.W, 3) ):
     print('no resizing needed')'''
@@ -318,9 +318,9 @@ if args.maskfile:
         print("copy your previously chosen framenumbers but now in this folder = ",gen_mask2,"and put them in",train_mask)
         frowframe_run1 = (input("have your read the above and put your frames in the folder? press ENTER if you do"))
 else:     
-    subprocess.run(['magick', 'mogrify', '-brightness-contrast', '200x0', '-path', gen_mask, '-format','png', gen_filtered_batch])
+    subprocess.run(['magick', 'mogrify', '-brightness-contrast', '200x0', '-path', gen_mask, '-format','png', gen_filtered_batch], shell=True)
     print ("masks in " ,gen_mask, "made") 
-    subprocess.run(['magick', 'mogrify', '-brightness-contrast', '200x0', '-path', train_mask, '-format','png', train_filtered_batch])
+    subprocess.run(['magick', 'mogrify', '-brightness-contrast', '200x0', '-path', train_mask, '-format','png', train_filtered_batch], shell=True)
     print ("masks in " ,train_mask, "made") 
 
 prjnm = str(args.projectname)
@@ -377,25 +377,25 @@ elif args.precision == 'undetailed_flow':
 if args.precision == 'detailed_flow':
         if args.framegap:
             if args.maskfile:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'])
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'], shell=True)
             else:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath], shell=True) #add choice for precision and add '--export_path', args.export_path
         else:
             if args.maskfile:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'])
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'], shell=True)
             else:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath], shell=True) #add choice for precision and add '--export_path', args.export_path
 elif args.precision == 'undetailed_flow':
         if args.framegap:
             if args.maskfile:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'])
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'], shell=True)
             else:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath], shell=True) #add choice for precision and add '--export_path', args.export_path
         else:
             if args.maskfile:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'])
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'], shell=True)
             else:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath], shell=True) #add choice for precision and add '--export_path', args.export_path
 else:
     print("webcam_test, normal, normal_slow don't use movement prediction, skipping..")
 
@@ -417,7 +417,7 @@ log_interval = args.log_interval
 #print(img1.shape)
 #print(args.H, args.W, "3")
 if( img1.shape != (args.H, args.W, 3) ):
-    subprocess.run(["magick","mogrify", "-resize", resizesize, "-quality", "100", train_output_batch]) # magick mogrify -resize 512x1024! -quality 100 C:\deepdream-test\Few-Shot-Patch-Based-Training-master\logs\kind_train\output/*
+    subprocess.run(["magick","mogrify", "-resize", resizesize, "-quality", "100", train_output_batch], shell=True) # magick mogrify -resize 512x1024! -quality 100 C:\deepdream-test\Few-Shot-Patch-Based-Training-master\logs\kind_train\output/*
 else:
     print("W and H are the same, skipping resize")
 if args.precision == 'detailed_flow':
@@ -427,7 +427,7 @@ if args.precision == 'detailed_flow':
         print('python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath], shell=True)
 elif args.precision == 'webcam_test':
         print("results will appear in ",resppath,"every" ,log_interval,"steps")
         print("")
@@ -435,7 +435,7 @@ elif args.precision == 'webcam_test':
         print('python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        subprocess.run(['python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath], shell=True)
 elif args.precision == 'undetailed_flow':
         print("results will appear in ",disco1015path,"every" ,log_interval,"steps")
         print("")
@@ -443,7 +443,7 @@ elif args.precision == 'undetailed_flow':
         print('python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath], shell=True)
 elif args.precision == 'normal':
         print("results will appear in ",resppath,"every" ,log_interval,"steps")
         print("")
@@ -451,7 +451,7 @@ elif args.precision == 'normal':
         print('python', '-B', trainur, '--config', normal, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', normal, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        subprocess.run(['python', '-B', trainur, '--config', normal, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath], shell=True)
 elif args.precision == 'normal_slow':
         print("results will appear in ",resfpath,"every" ,log_interval,"steps")
         print("")
@@ -459,5 +459,5 @@ elif args.precision == 'normal_slow':
         print('python', '-B', trainur, '--config', normal2, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', normal2, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath])
+        subprocess.run(['python', '-B', trainur, '--config', normal2, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath], shell=True)
         
