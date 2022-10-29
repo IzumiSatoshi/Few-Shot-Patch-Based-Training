@@ -515,25 +515,25 @@ elif args.precision == 'undetailed_flow':
 if args.precision == ['detailed_flow']:
         if args.framegap:
             if args.maskfile:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'])
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'], shell=True)
             else:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'detailed_flow','--logpath',logpath], shell=True) #add choice for precision and add '--export_path', args.export_path
         else:
             if args.maskfile:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'])
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath,'--mask', '1'], shell=True)
             else:
                 subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'detailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
 elif args.precision == ['undetailed_flow']:
         if args.framegap:
             if args.maskfile:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'])
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'], shell=True)
             else:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png','--framegap', frmgp, '--precision', 'undetailed_flow','--logpath',logpath], shell=True) #add choice for precision and add '--export_path', args.export_path
         else:
             if args.maskfile:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'])
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath,'--mask', '1'], shell=True)
             else:
-                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath]) #add choice for precision and add '--export_path', args.export_path
+                subprocess.run(['python', tools_all, '--projectname', prjnm, '--frames', video_length2, '--extension', 'png', '--precision', 'undetailed_flow','--logpath',logpath], shell=True) #add choice for precision and add '--export_path', args.export_path
 else:
     print("webcam_test, normal, normal_slow don't use movement prediction, skipping..")
 
@@ -627,7 +627,7 @@ elif args.patch_size == ['64']:
 #print(img1.shape)
 #print(args.H, args.W, "3")
 if( img1.shape != (args.H, args.W, 3) ):
-    subprocess.run(["magick","mogrify", "-resize", resizesize, "-quality", "100", train_output_batch]) # magick mogrify -resize 512x1024! -quality 100 C:\deepdream-test\Few-Shot-Patch-Based-Training-master\logs\kind_train\output/*
+    subprocess.run(["magick","mogrify", "-resize", resizesize, "-quality", "100", train_output_batch], shell=True) # magick mogrify -resize 512x1024! -quality 100 C:\deepdream-test\Few-Shot-Patch-Based-Training-master\logs\kind_train\output/*
 else:
     print("W and H are the same, skipping resize")
 if args.precision == ['detailed_flow']:
@@ -637,7 +637,7 @@ if args.precision == ['detailed_flow']:
         print('python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias])
+        subprocess.run(['python', '-B', trainur, '--config', disco1010, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias], shell=True)
 elif args.precision == ['webcam_test']:
         print("results will appear in ",resppath,"every" ,log_interval,"steps")
         print("")
@@ -645,7 +645,7 @@ elif args.precision == ['webcam_test']:
         print('python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias])
+        subprocess.run(['python', '-B', trainur, '--config', webcam, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias], shell=True)
 elif args.precision == ['undetailed_flow']:
         print("results will appear in ",disco1015path,"every" ,log_interval,"steps")
         print("")
@@ -653,7 +653,7 @@ elif args.precision == ['undetailed_flow']:
         print('python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias])
+        subprocess.run(['python', '-B', trainur, '--config', disco1015, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias], shell=True)
 elif args.precision == ['normal']:
         print("results will appear in ",resppath,"every" ,log_interval,"steps")
         print("")
@@ -661,7 +661,7 @@ elif args.precision == ['normal']:
         print('python', '-B', trainur, '--config', normal, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', normal, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias])
+        subprocess.run(['python', '-B', trainur, '--config', normal, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias], shell=True)
 elif args.precision == ['normal_slow']:
         print("results will appear in ",resfpath,"every" ,log_interval,"steps")
         print("")
@@ -669,5 +669,5 @@ elif args.precision == ['normal_slow']:
         print('python', '-B', trainur, '--config', normal2, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias)
         print("")
         print("")
-        subprocess.run(['python', '-B', trainur, '--config', normal2, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias])
+        subprocess.run(['python', '-B', trainur, '--config', normal2, '--data_root', train_root, '--log_interval', log_interval, '--log_folder', 'logs_reference_P','--projectname', prjnm,'--logpath',logpath,'--perception_loss_weight',perception_loss_weight,'--reconstruction_weight',reconstruction_weight,'--adversarial_weight',adversarial_weight,'--append_smoothers',append_smoothers,'--filters_layers',filters_layers,'--patch_size',patch_size,'--use_normalization',use_normalization, '--use_image_loss',use_image_loss, '--tanh',tanh, '--use_bias',use_bias], shell=True)
         
