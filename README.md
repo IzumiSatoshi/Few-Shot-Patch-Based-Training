@@ -8,13 +8,13 @@
 
 [x] gif support
 
-[] mask support (in progress)
+[x] make a GUI
+
+[x] mask support
 
 [] optimize the movement tracking scripts to run with GPU or multiple CPU (in progress)
 
 [] add linux support (in progress)
-
-[] make a GUI (hit me up if you have experience in that)
 
 [] support videos over 1000 frames (in progress)
 
@@ -33,14 +33,7 @@ cd C:/path/to/Few-Shot-Patch-Based-Training-master
 ``` 
 
 ``` 
-python _tools\fewshot.py 
-	--inputfile "C:\full\path\to\input\video\video.mp4" 
-	--projectname project2 
-	--logpath logs 
-	--W 1024 
-	--H 512 
-	--framegap 5 
-	--precision detailed_flow
+python _tools\fewshot_UI.py
 ```
 ### the terminal will pause after processing the frames and folders, you can then take the frames from the folder it tells you to take them from and apply a style to those and then export the frames to the folder it tells you, then press enter a couple times to resume the script :)
 
@@ -76,7 +69,7 @@ put "C:\path\to\Few-Shot-Patch-Based-Training-master\\_tools\disflow\opencv-4.2.
 
 ### pip installs
 
-(venv don't work atm (probably because of the subprocess things), if you find a fix please do a pull request)
+(venv should work now thanks to [alpkabac](https://github.com/alpkabac))
 
 ``` 
 pip install ruamel.yaml
