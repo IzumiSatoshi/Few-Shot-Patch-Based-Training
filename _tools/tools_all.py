@@ -7,6 +7,7 @@ import time
 import random
 import numba
 from numba import cuda
+import PySimpleGUI as sg 
 
 parser = argparse.ArgumentParser(description='arguments')
 
@@ -211,7 +212,14 @@ if args.precision == 'detailed_flow':
     else:
         print("you didn't provide a framegap value so you need to manually put those frames into the folder")
         print("copy your previously chosen framenumbers but now in this folder = ",gen_gdisco,"and put them in",train_gdisco)
-        frowframe_run1 = (input("have your read the above and put your frames in the folder? press ENTER if you do"))
+        window=sg.Window('READ',
+                        [ [sg.Text("you didn't provide a framegap value so you need to manually put those frames into the folder")],
+                        [sg.Text(f"copy your previously chosen framenumbers but now in this folder = {gen_gdisco} and pu them in {train_gdisco}")],
+                        [sg.Text('COPY THE PATHS IN THE STATUS WINDOW AND DO WHAT IT SAYS')],
+                        [sg.Text('have your read the above and understand? press Submit if you do')],
+                        [sg.Submit()]])
+        event, values = window.Read()
+        window.Close() 
 else:
     print (" ")
     print (" ")

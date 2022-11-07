@@ -291,7 +291,14 @@ if args.framegap:
 else:
     print("you didn't provide a framegap value so you'll have to choose the frames that you display the style on yourself")
     print("choose a couple frames in ",gen_filtered,"and put them in",train_filtered)
-    frowframe_run1 = (input("have your read the above and put your frames in the folder? press ENTER if you do"))
+    window=sg.Window('READ',
+                     [ [sg.Text("you didn't provide a framegap value so you'll have to choose the frames that you display the style on yourself")],
+                       [sg.Text(f"choose a couple frames in {gen_filtered} and put them in {train_filtered}")],
+                       [sg.Text('COPY THE PATHS IN THE STATUS WINDOW AND DO WHAT IT SAYS')],
+                       [sg.Text('have your read the above and understand? press Submit if you do')],
+                       [sg.Submit()]])
+    event, values = window.Read()
+    window.Close() 
 
 import subprocess
 
@@ -337,7 +344,14 @@ if args.maskfile:
     else:
         print("you didn't provide a framegap value so you'll have to choose the frames that you display the style on yourself")
         print("copy your previously chosen framenumbers but now in this folder = ",gen_mask2,"and put them in",train_mask)
-        frowframe_run1 = (input("have your read the above and put your frames in the folder? press ENTER if you do"))
+        window=sg.Window('READ',
+                        [ [sg.Text("you didn't provide a framegap value so you'll have to choose the frames that you display the style on yourself")],
+                        [sg.Text(f"copy your previously chosen framenumbers but now in this folder = {gen_mask2} and pu them in {train_mask}")],
+                        [sg.Text('COPY THE PATHS IN THE STATUS WINDOW AND DO WHAT IT SAYS')],
+                        [sg.Text('have your read the above and understand? press Submit if you do')],
+                        [sg.Submit()]])
+        event, values = window.Read()
+        window.Close() 
 else:    
     import shutil
     import os
